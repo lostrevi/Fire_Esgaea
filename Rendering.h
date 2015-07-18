@@ -19,15 +19,16 @@ void Draw_Things()
 	
 	 Draw_Background();
 	 
-	 
+
 	 ///test///
 	 
 	 //Drawshit();
-	 //LLd.drawtest();
+	 LLd.drawtest();
 	 GUI0.Draw_CONT();
 	 ///test///
-	 
-	 
+
+
+
 	 
 	 //////////////////
 	 

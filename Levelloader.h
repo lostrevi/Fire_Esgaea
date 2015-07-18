@@ -193,7 +193,6 @@ class loadlevel
 	
 	void drawtest()
 	{
-		
 		for(int y = 0; y < 30; y++)
 		{
 			for(int x =0; x < 40;x++)

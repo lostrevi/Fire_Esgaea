@@ -18,8 +18,8 @@ class NPC
 		{
 			while (getline (NPCMaster , tempholder))
 			{
-				GUI GUI0;
-				GUI0.Selector_CONT();
+				//GUI GUI0;
+				//GUI0.Selector_CONT();
 				output(tempholder,0);
 			}
 			NPCMaster.close();
