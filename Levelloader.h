@@ -20,7 +20,7 @@ class loadlevel
 	SDL_Texture  *MAPT0;
 
 	public: 
-		int ACT_MAPARRAY [39] [29];
+		int ACT_MAPARRAY [40] [30];
 	
 	void LoadLevel() //this is load level default.
 	{
@@ -74,9 +74,9 @@ class loadlevel
 				{
 					state = MAP0;
 					
-									std::string s = std::to_string(ACT_MAPARRAY[0][0]);
-									Output = s;
-									output(Output,1);
+									//std::string s = std::to_string(ACT_MAPARRAY[0][0]);
+									//Output = s;
+									//output(Output,1);
 					
 					continue;
 						
@@ -100,7 +100,7 @@ class loadlevel
 										
 										if(value.length() > 0)
 										{
-											std::cout << j <<std::endl;
+											//std::cout << j <<std::endl;
 										
 											std::istringstream buffer(value);
 											int TEMP;
@@ -111,21 +111,21 @@ class loadlevel
 											ACT_MAPARRAY[i][j] = TEMP;
 
 										
-											std::stringstream ss;
-											ss << ACT_MAPARRAY[i][j];
-											std::string TESTTEMP = ss.str();
+											//std::stringstream ss;
+											//ss << ACT_MAPARRAY[i][j];
+											//std::string TESTTEMP = ss.str();
 										
-											Output = TESTTEMP;
-											output(Output,0);
+											//Output = TESTTEMP;
+											//output(Output,0);
 											
 											i++;
 
 										}
 									}
 
-									std::string s = std::to_string(ACT_MAPARRAY[0][1]);
-									Output = s;
-									output(Output,1);
+									//std::string s = std::to_string(ACT_MAPARRAY[0][1]);
+									//Output = s;
+									//output(Output,1);
 									
 									
 									j++;
@@ -194,9 +194,9 @@ class loadlevel
 	void drawtest()
 	{
 		
-		for(int y = 0; y < 29; y++)
+		for(int y = 0; y < 30; y++)
 		{
-			for(int x =0; x < 39;x++)
+			for(int x =0; x < 40;x++)
 			{
 				int Index = ACT_MAPARRAY[x][y];
 				
@@ -256,8 +256,8 @@ void Loadlevel(std::string level,std::string asset)
 	m_destinationRectangle.h = test.h = 16; //test dist is crop for y
 	
 	//m_destinationRectangle.x = 16;
-	test.x = 16*3;
-	test.y = 16;
+	//test.x = 16*3;
+	//test.y = 16;
 	
 	
 	

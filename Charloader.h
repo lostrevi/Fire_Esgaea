@@ -18,6 +18,8 @@ class NPC
 		{
 			while (getline (NPCMaster , tempholder))
 			{
+				GUI GUI0;
+				GUI0.Selector_CONT();
 				output(tempholder,0);
 			}
 			NPCMaster.close();
@@ -61,8 +63,8 @@ class NPC
 					//testing///////////////////////////////////////
 					//std::cin.ignore();
 					//Loadlevel("","");
-						///////TEST////////////////
-						TEST.LoadLevel();
+						///////TEST////////////////+
+						LLd.LoadLevel();
 						///////TEST////////////////
 					//testing///////////////////////////////////////
 					//will load the defualt map insted of exiting.
