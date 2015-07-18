@@ -2,6 +2,7 @@
 #define RENDERING_H
 
 #include "Levelloader.h"
+#include "GUI.h"
 
 void Draw_Background()
 {
@@ -9,7 +10,8 @@ void Draw_Background()
 	SDL_RenderClear(Ren0);
 }
 //test/////////
-loadlevel TEST;
+loadlevel LLd;
+GUI GUI0;
 //test/////////
 void Draw_Things()
 {
@@ -19,14 +21,18 @@ void Draw_Things()
 	 
 	 
 	 ///test///
-	 Drawshit();
-	 TEST.drawtest();
+	 
+	 //Drawshit();
+	 //LLd.drawtest();
+	 GUI0.Draw_CONT();
 	 ///test///
 	 
 	 
 	 
 	 //////////////////
+	 
 	 SDL_RenderPresent(Ren0);
+
 	 
 }
 

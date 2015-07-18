@@ -21,8 +21,10 @@
 #include <windows.h>
 #include "SDL_image.h"
 #include "SDL_INIT.h"
+
 #include "Rendering.h"
 #include "Charloader.h"
+#include "GUI.h"
 #include "Levelloader.h"
 #include "ConsoleCM.h"
 #include "KeyEvents.h"
@@ -34,10 +36,13 @@ int main(int argc, char *argv[])
 	INIT_EVERYTHING();
 	
 	NPC NPC0;
+	GUI GUI0;
 	
 	
 	NPC0.INIT_loadNPCdata();
-	NPC0.INIT_loadmap("normal","");
+	///NPC0.INIT_loadmap("normal","");
+	//Loadlevel("","");//temp
+	//GUI0.Selector_CONT();
 	//NPC0.INIT_loadmap("Override","DATA/BUTT.txt"); //just for testing This file is no longer here.
 	
 	//for frame rate.
@@ -63,7 +68,8 @@ int main(int argc, char *argv[])
 		if(1000/FPS > SDL_GetTicks() - FPS_A)
 			SDL_Delay(1000/FPS - (SDL_GetTicks() - FPS_A));
 	}
-	
+		SDL_DestroyTexture(MAPT0);
+		SDL_DestroyTexture(MAPT0);
 		SDL_DestroyTexture (Tex0);
 		SDL_DestroyRenderer(Ren0);
 		SDL_DestroyWindow  (Win0);
