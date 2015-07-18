@@ -28,7 +28,7 @@ bool INIT_SUBSYSTEMS()
 // Creates our window win0
 bool INIT_WINDOW()
 {
-	Win0 = SDL_CreateWindow("BASS INVADERS", 100, 100, 640, 480, SDL_WINDOW_SHOWN);
+	Win0 = SDL_CreateWindow("Fire_Esgaea", 100, 100, 640, 480, SDL_WINDOW_SHOWN);
 	if(Win0 == NULL){
 		std::cout << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
 		SDL_Quit();
@@ -60,6 +60,48 @@ void INIT_EVERYTHING()
 	INIT_SUBSYSTEMS();
 	INIT_WINDOW();
 	INIT_RENDERER();
+}
+
+void output(std::string line, int num)
+{
+	// 0 - normal - WHITE
+	// 1 - ERROR - RED ON BLUE 
+	// 2 - GREAT! - GREEN
+	// 9 - INPUT! - none/short
+		HANDLE h= GetStdHandle( STD_OUTPUT_HANDLE );
+		
+	 	WORD wOldColorAttrs;
+  		CONSOLE_SCREEN_BUFFER_INFO csbiInfo;
+  		
+  		GetConsoleScreenBufferInfo(h, &csbiInfo);
+ 		wOldColorAttrs = csbiInfo.wAttributes;
+  
+	if(num < 10){
+	
+	SetConsoleTextAttribute(h,FOREGROUND_RED | FOREGROUND_INTENSITY);
+	std::cout << "NPC> ";
+	SetConsoleTextAttribute ( h, wOldColorAttrs);
+	}
+	if(num == 1)
+	{
+		SetConsoleTextAttribute(h,FOREGROUND_RED | FOREGROUND_INTENSITY | BACKGROUND_BLUE);
+		std::cout << line << std::endl;
+		SetConsoleTextAttribute ( h, wOldColorAttrs);
+	}
+	else if(num == 2)
+	{
+		SetConsoleTextAttribute(h,FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+		std::cout << line << std::endl;
+		SetConsoleTextAttribute ( h, wOldColorAttrs);
+	}
+		else if(num == 9)
+	{
+		std::cout << line;
+	}
+	else
+	std::cout << line << std::endl;
+	
+	
 }
 
 

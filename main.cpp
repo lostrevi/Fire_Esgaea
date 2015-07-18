@@ -14,11 +14,18 @@
 #include <SDL_ttf.h>
 #include <iostream>
 #include <string>
+#include <math.h>
+#include <fstream>
+#include <algorithm>  
+#include <sstream>
+#include <windows.h>
+#include "SDL_image.h"
 #include "SDL_INIT.h"
-#include "KeyEvents.h"
-#include "Levelloader.h"
 #include "Rendering.h"
 #include "Charloader.h"
+#include "Levelloader.h"
+#include "ConsoleCM.h"
+#include "KeyEvents.h"
 
 int main(int argc, char *argv[])
 {
@@ -38,6 +45,9 @@ int main(int argc, char *argv[])
 	Uint32 FPS_A;
 	
 
+
+	
+
 	output("Loaded.",2);
 	while(!Exit)
 	{
@@ -48,6 +58,7 @@ int main(int argc, char *argv[])
 		Draw_Things();
 		
 		
+		
 		// if frame rate its over it will delay the game. must be at the end of the loop or else it will not be correct.
 		if(1000/FPS > SDL_GetTicks() - FPS_A)
 			SDL_Delay(1000/FPS - (SDL_GetTicks() - FPS_A));
@@ -56,5 +67,6 @@ int main(int argc, char *argv[])
 		SDL_DestroyTexture (Tex0);
 		SDL_DestroyRenderer(Ren0);
 		SDL_DestroyWindow  (Win0);
+		IMG_Quit();
 	return 0;
 }

@@ -1,44 +1,9 @@
 #ifndef CHARLOADER_H
 #define CHARLOADER_H
 
-#include <fstream>
-#include <windows.h>
 
-void output(std::string line, int num)
-{
-	// 0 - normal - WHITE
-	// 1 - ERROR - RED ON BLUE 
-	// 2 - GREAT! - GREEN
-		HANDLE h= GetStdHandle( STD_OUTPUT_HANDLE );
-		
-	 	WORD wOldColorAttrs;
-  		CONSOLE_SCREEN_BUFFER_INFO csbiInfo;
-  		
-  		GetConsoleScreenBufferInfo(h, &csbiInfo);
- 		wOldColorAttrs = csbiInfo.wAttributes;
-  
-	
-	SetConsoleTextAttribute(h,FOREGROUND_RED | FOREGROUND_INTENSITY);
-	std::cout << "NPC> ";
-	SetConsoleTextAttribute ( h, wOldColorAttrs);
-	
-	if(num == 1)
-	{
-		SetConsoleTextAttribute(h,FOREGROUND_RED | FOREGROUND_INTENSITY | BACKGROUND_BLUE);
-		std::cout << line << std::endl;
-		SetConsoleTextAttribute ( h, wOldColorAttrs);
-	}
-	else if(num == 2)
-	{
-		SetConsoleTextAttribute(h,FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-		std::cout << line << std::endl;
-		SetConsoleTextAttribute ( h, wOldColorAttrs);
-	}
-	else
-	std::cout << line << std::endl;
-	
-	
-}
+
+
 
 class NPC
 {
@@ -47,7 +12,7 @@ class NPC
 		{
 		//this is just a quick test|| start
 		std::string tempholder;
-		std::ifstream NPCMaster ("DATA/NPC/NPC_tree.txt");
+		std::ifstream NPCMaster ("Data/NPC/NPC_tree.txt");
 		
 		if(NPCMaster.is_open())
 		{
@@ -95,7 +60,10 @@ class NPC
 					output(OUTPUT,1);
 					//testing///////////////////////////////////////
 					//std::cin.ignore();
-					Loadlevel("","");
+					//Loadlevel("","");
+						///////TEST////////////////
+						TEST.LoadLevel();
+						///////TEST////////////////
 					//testing///////////////////////////////////////
 					//will load the defualt map insted of exiting.
 					OUTPUT = "Loading default (NOT SETUP YET)";

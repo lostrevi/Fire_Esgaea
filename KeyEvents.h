@@ -1,6 +1,8 @@
 #ifndef KEYEVENTS_H
 #define KEYEVENTS_H
 
+
+
 void Key_Presses()
 {
 	SDL_PumpEvents(); 
@@ -23,6 +25,7 @@ void Key_Presses()
 				{
 					// key events that arn't contious-response can be put here.
            				 case SDLK_ESCAPE: SDL_Quit; Exit = true; break;
+           				 case SDLK_RCTRL: CCM(); break;
 
             		
 				    default: break;
