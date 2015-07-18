@@ -43,6 +43,7 @@ int main(int argc, char *argv[])
 	NPC0.INIT_loadmap("normal","");
 	//Loadlevel("","");//temp
     GUI0.Selector_CONT();
+    GUI0.HUD_Dispay();
 	//NPC0.INIT_loadmap("Override","DATA/BUTT.txt"); //just for testing This file is no longer here.
 	
 	//for frame rate.

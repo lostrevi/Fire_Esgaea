@@ -41,10 +41,17 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 {
 		SDL_Surface  *GUIS0 = NULL;
 	    SDL_Texture  *GUIT0 = NULL;
+	    
+	    SDL_Surface  *GUIS1 = NULL;
+	    SDL_Texture  *GUIT1 = NULL;
 
+		bool HudUP = false;
 	    
 	    SDL_Rect CropX; // this for the cropted tile you want to draw
 		SDL_Rect LocX; // This is the tile location after it has been croped.
+		
+		SDL_Rect Crop1;
+		SDL_Rect Loc1;
 		
 	public:
 		int SL_X = 0, SL_Y = 0;
@@ -76,6 +83,25 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 		CropX.x = 16 * int(((SDL_GetTicks() / 100) % 5)); // animate
 		
 		SDL_RenderCopy(Ren0,GUIT0, &CropX,&LocX); // draw to render
+		
+		if(HudUP)
+		SDL_RenderCopy(Ren0,GUIT1, &Crop1,&Loc1); 
+		
+	}
+	
+	void HUD_Dispay()
+	{
+		GUIS1 = IMG_Load("Data/UI/HUD_GUI.bmp");
+		GUIT1 = SDL_CreateTextureFromSurface(Ren0,GUIS1);
+		SDL_FreeSurface(GUIS1);
+		
+		SDL_QueryTexture(GUIT1,NULL,NULL, &Crop1.w,&Crop1.h);
+		
+		Loc1.x = Crop1.x = 0;
+		Loc1.y = Crop1.y = 0;
+		Loc1.w = Crop1.w = 640;
+		Loc1.h = Crop1.h = 150;
+		Loc1.y = 330;
 	}
 	
 	void MovSLT(int a)
@@ -115,9 +141,17 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 		else if (a == 10) //change to starting a funtion with bring up the seletion GUI ent.
 		{
 			if(CropX.y == 0)
-			CropX.y = 16;
+			{
+				CropX.y = 16;
+				HudUP = true;
+			}
+			
 			else if(CropX.y == 16)
-			CropX.y = 0;
+			{
+				CropX.y = 0;
+				HudUP = false;
+			}
+			
 		}
 		else
 		{
