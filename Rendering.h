@@ -23,7 +23,8 @@ void Draw_Things()
 	 ///test///
 	 
 	 //Drawshit();
-	 LLd.drawtest();
+	 //LLd.drawtest();
+	 LLd.drawmap0();
 	 GUI0.Draw_CONT();
 	 ///test///
 

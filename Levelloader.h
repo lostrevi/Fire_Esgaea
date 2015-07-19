@@ -14,19 +14,175 @@ class loadlevel
 	const int tX = 16, tY = 16;
 	SDL_Rect CropT; // this for the cropted tile you want to draw
 	SDL_Rect LocT; // This is the tile location after it has been croped.
-			int j = 0; // i fucking hate that this has to be up here bacuase it keeps fucking everthing up.
+			
 	//SDL_Renderer *MAPR0; // might not need
 	SDL_Surface  *MAPS0;
 	SDL_Texture  *MAPT0;
 
 	public: 
 		int ACT_MAPARRAY [40] [30];
+		int REAL_MAPARRAY [500][500];
+		int ONSCREEN_MAPARRAY [40][30]; // might be temp.
+		
+		int MapX = 0, MapY = 0, Xoff = 0, Yoff = 0;
+		
+	void LoadLevel(std::string Leveldata, std::string Other)
+	{
+		enum STATE { SIZE, MAP0};
+		int j = 0; // this should be fine up here.
+		STATE state;
+		
+		
+		
+		std::string Output;
+		std::ifstream LevelData ("Data/MAP/Levels/Level_files/test_bigish_map.txt"); // this will be the level data string Leveldata.str(); ... thats not right but i know it something like that. this is just the test level then i will add this in.
+		
+		if(LevelData.is_open())
+		{
+			
+			std::string line, value;
+			if(line.empty())
+			int space;
+			
+			while(!LevelData.eof())
+			{
+				std::getline(LevelData, line);
+				
+				if(line.find("[mapsize]") != std::string::npos)
+				{
+					state = SIZE;
+					continue;
+				}
+				if(line.find("[maplocdata]") != std::string::npos)
+				{
+					state = MAP0;
+					continue;
+				}
+				//////////STATE SWTICH!!!!!! ///////////////
+				int i = 0;// need
+				
+				switch(state)
+				{
+					case SIZE:
+						
+						{
+							output("SIZE STATE",0);
+
+							std::stringstream str(line);
+							
+							while(!str.eof())
+							{
+								std::getline(str, value, ' ');
+								
+								if(value.length() > 0)
+								{
+
+									std::istringstream buffer(value);
+									int TEMP;
+									buffer >> TEMP;
+							
+									if (MapX == 0)
+									MapX = TEMP;
+									else if (MapY == 0)
+									MapY = TEMP;
+
+							         
+								}
+
+							}
+				
+							break;				
+						}
+					case MAP0:
+						{
+							
+							std::stringstream str(line);
+							
+							while(!str.eof())
+							{
+								std::getline(str, value, ' ');
+								
+								if(value.length() > 0)
+								{
+									
+									std::istringstream buffer(value);
+									int TEMP;
+									buffer >> TEMP;
+									
+									REAL_MAPARRAY [i][j] = TEMP;
+									i++;
+								}
+							}
+							j++;
+							break;
+						}
+				}
+			}
+			LevelData.close();
+		}
+		else
+		{
+			Output = "failed to load " + Leveldata;
+			output(Output,1);
+		}
+		
+		MAPS0 = IMG_Load("Data/Map/Assets/Map_Assets-temp.bmp"); // default
+		MAPT0 = SDL_CreateTextureFromSurface(Ren0,MAPS0);
+		SDL_FreeSurface(MAPS0);
+			
+		SDL_QueryTexture(MAPT0,NULL,NULL,&CropT.w,&CropT.h);
+		
+			LocT.x = CropT.x = 0;
+			LocT.y = CropT.y = 0;
+			LocT.w = CropT.w = 16;
+			LocT.h = CropT.h = 16;
+			
+			//putting REAL_MAPARRAY into ONSCREEN_MAPARRAY so that it can be drawn without drawing the holemap. loads the map a zero zero with no off set
+			for(int y = 0; y < 30; y++)
+			{
+				for(int x = 0; x < 40; x++)
+				{
+					ONSCREEN_MAPARRAY[x][y] = REAL_MAPARRAY[x][y];
+				}
+			}
+		
+		
+	}
+	void LevelShifter(int VAL)
+	{
+		
+	}
 	
+	void drawmap0()
+	{
+		for(int y = 0; y < 30; y++)
+		{
+			for(int x = 0; x < 40; x++)
+			{
+				int Index = ONSCREEN_MAPARRAY[x][y];
+				
+				double TileRow = floor(Index/25);
+				int TileCol = Index % 25;
+				
+				CropT.x = TileCol * 16;
+				CropT.y = TileRow * 16;
+				LocT.y = 16 * y;
+				LocT.x = 16 * x;
+				
+				SDL_RenderCopy(Ren0,MAPT0, &CropT,&LocT);
+			}
+		}
+	}
+	
+	
+	
+	
+	////////////////////////////////////////////////////BELOW IS DEFUALT LOADER /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	void LoadLevel() //this is load level default.
 	{
 	
 		enum STATE { SIZE, MAP0};
-		
+		int j = 0; // i fucking hate that this has to be up here bacuase it keeps fucking everthing up.
 		STATE state;
 		
 		std::string Output;
@@ -50,7 +206,7 @@ class loadlevel
 				
 				//line.erase(std::remove(line.begin(), line.end(), '#'), line.end());
 				
-				if(line.find("[map size]") != std::string::npos)
+				if(line.find("[mapsize]") != std::string::npos)
 				{
 					state = SIZE;	
 					continue;
@@ -235,7 +391,7 @@ class loadlevel
 	}
 	
 };
-
+/*
 void Loadlevel(std::string level,std::string asset)
 {
 
@@ -273,6 +429,6 @@ void Drawshit()
 	//SDL_RenderCopy(Ren0, Tex0, &test , &test);
 	
 }
-
+*/
 
 #endif

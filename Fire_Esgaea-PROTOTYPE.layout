@@ -7,7 +7,7 @@ Open=1
 Top=0
 CursorCol=23
 CursorRow=46
-TopLine=29
+TopLine=20
 LeftChar=1
 [Editor_1]
 Open=1
@@ -38,8 +38,8 @@ LeftChar=1
 Open=1
 Top=0
 <<<<<<< HEAD
-CursorCol=1
-CursorRow=14
+CursorCol=18
+CursorRow=27
 TopLine=1
 =======
 CursorCol=10
@@ -51,7 +51,7 @@ LeftChar=1
 Open=1
 Top=0
 <<<<<<< HEAD
-CursorCol=23
+CursorCol=33
 CursorRow=67
 =======
 CursorCol=14
@@ -63,9 +63,9 @@ LeftChar=1
 Open=1
 Top=1
 <<<<<<< HEAD
-CursorCol=2
-CursorRow=243
-TopLine=1
+CursorCol=14
+CursorRow=165
+TopLine=131
 =======
 CursorCol=16
 CursorRow=20
@@ -95,12 +95,12 @@ CursorRow=42
 CursorCol=2
 CursorRow=12
 >>>>>>> origin/master
-TopLine=4
+TopLine=1
 LeftChar=1
 [Editor_7]
 Open=1
 Top=0
-CursorCol=3
-CursorRow=97
+CursorCol=6
+CursorRow=49
 TopLine=1
 LeftChar=1

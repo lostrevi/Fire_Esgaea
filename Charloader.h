@@ -64,7 +64,7 @@ class NPC
 					//std::cin.ignore();
 					//Loadlevel("","");
 						///////TEST////////////////+
-						LLd.LoadLevel();
+						LLd.LoadLevel("Testingname",""); // this is ment to be LLd.LoadLevel();
 						///////TEST////////////////
 					//testing///////////////////////////////////////
 					//will load the defualt map insted of exiting.
