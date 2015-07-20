@@ -13,7 +13,7 @@ bool INIT_RENDERER();
 	
 	bool Exit = false;
 	///////////////////
-
+	
 
 // starts all of SDL's subsystems
 bool INIT_SUBSYSTEMS()

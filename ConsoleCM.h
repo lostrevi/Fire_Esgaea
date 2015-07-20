@@ -22,17 +22,44 @@ void CCM()
 	{
 	output("",10);
 	OUTPUT = "Help - Lists all commands.";
-	output(OUTPUT,11);
+	output(OUTPUT,0);
 	OUTPUT = "#################################";
-	output(OUTPUT,11);
+	output(OUTPUT,0);
 	OUTPUT = "Help - This command";	
-	output(OUTPUT,11);
+	output(OUTPUT,0);
+	OUTPUT = "Loadlevel - Load a level just put the path and the asst(leave blank)";	
+	output(OUTPUT,0);
 	
 	
 	
 
 	OUTPUT = "";
 	}
+	
+	if(INPUT == "Loadlevel" || INPUT == "LOADLEVEL" || INPUT == "loadlevel")
+	{
+	std::string TEMP ,TEMP2;
+	output("",10);
+	OUTPUT = "Load level - loads level via command line";
+	output(OUTPUT,0);
+	OUTPUT = "#################################";
+	output(OUTPUT,0);
+	OUTPUT = "Enter Level Path : ";
+	output(OUTPUT,9);
+	std::cin >> TEMP;
+	std::cout << std::endl;
+	OUTPUT = "Enter asset(Level Blank)";
+	output(OUTPUT,0);
+	std::cin >> TEMP2;
+	output("",10);
+	LLd->LoadLevel(TEMP,TEMP);
+	
+	
+	
+	OUTPUT = "";
+	}
+	
+	
 	if(INPUT == "GETINFO")//this is a temp for seein mapdata in the load level calls.
 	{
 		loadlevel Acc;

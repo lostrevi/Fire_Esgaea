@@ -104,8 +104,9 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 		Loc1.y = 330;
 	}
 	
-	void MovSLT(int a)
+	void MovSLT(int a, loadlevel *lld)
 	{
+	
 		// this is for single movment only
 		// 0 - none
 		// 1 - up
@@ -138,6 +139,28 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 			LocX.x -= 16;
 			a = 0;
 		}
+		/////////// SHIFT THE MAP //////////////////
+		else if(a == 1 && LocX.y == 0)
+		{
+			lld->LevelShifter(1);
+			a = 0;
+		}
+		else if (a == 2 && LocX.y == 480-16)
+		{
+			lld->LevelShifter(2);
+			a = 0;
+		}
+		else if (a == 3 && LocX.x == 640 - 16)
+		{
+			lld->LevelShifter(3);
+			a = 0;
+		}
+		else if (a == 4 && LocX.x == 0)
+		{
+			lld->LevelShifter(4);
+			a = 0;
+		}
+		///////////////////////////////////////////////////////////////////////////////////////////////////////
 		else if (a == 10) //change to starting a funtion with bring up the seletion GUI ent.
 		{
 			if(CropX.y == 0)

@@ -18,24 +18,49 @@ class loadlevel
 	//SDL_Renderer *MAPR0; // might not need
 	SDL_Surface  *MAPS0;
 	SDL_Texture  *MAPT0;
+	SDL_Surface  *MAPS1;
+	SDL_Texture  *MAPT1;
 
 	public: 
-		int ACT_MAPARRAY [40] [30];
-		int REAL_MAPARRAY [500][500];
-		int ONSCREEN_MAPARRAY [40][30]; // might be temp.
+		int ACT_MAPARRAY [40] [30];// might be temp. might destroy this. i should destory this.
+		int REAL_MAPARRAY [500][500][5];
+		int ONSCREEN_MAPARRAY [40][30][5]; 
 		
-		int MapX = 0, MapY = 0, Xoff = 0, Yoff = 0;
+		int MapXM = 0, MapYM = 0, MapX = 0, MapY = 0, Xoff = 0, Yoff = 0;
 		
 	void LoadLevel(std::string Leveldata, std::string Other)
 	{
-		enum STATE { SIZE, MAP0};
-		int j = 0; // this should be fine up here.
+		//fushing both the MAPARRAYS;
+		for(int k = 0; k < 5; k++)
+		{
+			for(int j = 0; j < 30; j++)
+			{	
+				for(int i = 0; i < 40; i++)
+				{
+					ONSCREEN_MAPARRAY[i][j][k] = 0;
+				}
+		}
+		}
+		for(int k = 0; k < 5; k++)
+		{
+			for(int j = 0; j < 500; j++)
+				{
+					for(int i = 0; i < 500; i++)
+					{
+						REAL_MAPARRAY[i][j][k] = 0;
+					}
+			}
+		}
+		MapXM = 0, MapYM = 0, MapX = 0, MapY = 0, Xoff = 0, Yoff = 0;
+		
+		enum STATE { SIZE, MAP0, OBJ0};
+		int j = 0,j1 = 0; // this should be fine up here.
 		STATE state;
 		
 		
 		
 		std::string Output;
-		std::ifstream LevelData ("Data/MAP/Levels/Level_files/test_bigish_map.txt"); // this will be the level data string Leveldata.str(); ... thats not right but i know it something like that. this is just the test level then i will add this in.
+		std::ifstream LevelData (Leveldata.c_str()); // this will be the level data string Leveldata.c_str(); ... thats not right but i know it something like that. this is just the test level then i will add this in.
 		
 		if(LevelData.is_open())
 		{
@@ -58,8 +83,13 @@ class loadlevel
 					state = MAP0;
 					continue;
 				}
+				if(line.find("[OBJLAYER0]") != std::string::npos)
+				{
+					state = OBJ0;
+					continue;
+				}
 				//////////STATE SWTICH!!!!!! ///////////////
-				int i = 0;// need
+				int i = 0, i1 = 0;// need
 				
 				switch(state)
 				{
@@ -81,10 +111,10 @@ class loadlevel
 									int TEMP;
 									buffer >> TEMP;
 							
-									if (MapX == 0)
-									MapX = TEMP;
-									else if (MapY == 0)
-									MapY = TEMP;
+									if (MapXM == 0)
+									MapXM = TEMP;
+									else if (MapYM == 0)
+									MapYM = TEMP;
 
 							         
 								}
@@ -109,11 +139,34 @@ class loadlevel
 									int TEMP;
 									buffer >> TEMP;
 									
-									REAL_MAPARRAY [i][j] = TEMP;
+									REAL_MAPARRAY [i][j][0] = TEMP;
 									i++;
 								}
 							}
 							j++;
+							break;
+						}
+					case OBJ0:
+						{
+							
+							std::stringstream str(line);
+							
+							while(!str.eof())
+							{
+								std::getline(str, value, ' ');
+								
+								if(value.length() > 0)
+								{
+									
+									std::istringstream buffer(value);
+									int TEMP;
+									buffer >> TEMP;
+									
+									REAL_MAPARRAY [i1][j1][1] = TEMP;
+									i1++;
+								}
+							}
+							j1++;
 							break;
 						}
 				}
@@ -132,44 +185,142 @@ class loadlevel
 			
 		SDL_QueryTexture(MAPT0,NULL,NULL,&CropT.w,&CropT.h);
 		
+		MAPS1 = IMG_Load("Data/Map/Assets/Objects.bmp"); // default
+		MAPT1 = SDL_CreateTextureFromSurface(Ren0,MAPS1);
+		SDL_FreeSurface(MAPS1);
+			
+		SDL_QueryTexture(MAPT1,NULL,NULL,&CropT.w,&CropT.h);
+		
+		
 			LocT.x = CropT.x = 0;
 			LocT.y = CropT.y = 0;
 			LocT.w = CropT.w = 16;
 			LocT.h = CropT.h = 16;
 			
 			//putting REAL_MAPARRAY into ONSCREEN_MAPARRAY so that it can be drawn without drawing the holemap. loads the map a zero zero with no off set
+		for(int k = 0; k < 5; k++)
+		{
 			for(int y = 0; y < 30; y++)
 			{
 				for(int x = 0; x < 40; x++)
 				{
-					ONSCREEN_MAPARRAY[x][y] = REAL_MAPARRAY[x][y];
+					ONSCREEN_MAPARRAY[x][y][k] = REAL_MAPARRAY[x][y][k];
 				}
 			}
-		
+		}
 		
 	}
 	void LevelShifter(int VAL)
 	{
+		// 1 - up
+		// 2 - down
+		// 3 - Right
+		// 4 - left
 		
+		if(VAL == 1 && MapY != 0)
+		{
+			Yoff --;
+			MapY --;
+		for(int k = 0; k < 5; k++)
+		{
+			for(int y = 0; y < 30; y++)
+			{
+				for(int x = 0; x < 40; x++)
+				{
+					ONSCREEN_MAPARRAY[x][y][k] = REAL_MAPARRAY[x + Xoff][y + Yoff][k];
+				}
+			}
+		}
+		
+		}
+		else if(VAL == 2 && MapY+29 != MapYM)
+		{
+			Yoff ++;
+			MapY ++;
+		for(int k = 0; k < 5; k++)
+		{
+			for(int y = 0; y < 30; y++)
+			{
+				for(int x = 0; x < 40; x++)
+				{
+					ONSCREEN_MAPARRAY[x][y][k] = REAL_MAPARRAY[x + Xoff][y + Yoff][k];
+				}
+			}
+		}
+		
+		}
+		else if(VAL == 3 && MapX+39 != MapXM)
+		{
+			Xoff ++;
+			MapX ++;
+		for(int k = 0; k < 5; k++)
+		{
+			for(int y = 0; y < 30; y++)
+			{
+				for(int x = 0; x < 40; x++)
+				{
+					ONSCREEN_MAPARRAY[x][y][k] = REAL_MAPARRAY[x + Xoff][y + Yoff][k];
+				}
+			}
+		}
+		
+		}
+		else if(VAL == 4 && MapX != 0)
+		{
+			Xoff --;
+			MapX --;
+		for(int k = 0; k < 5; k++)
+		{
+			for(int y = 0; y < 30; y++)
+			{
+				for(int x = 0; x < 40; x++)
+				{
+					ONSCREEN_MAPARRAY[x][y][k] = REAL_MAPARRAY[x + Xoff][y + Yoff][k];
+				}
+			}
+		}
+		
+		}
 	}
 	
 	void drawmap0()
 	{
-		for(int y = 0; y < 30; y++)
+		for(int k = 0; k < 5; k++)
 		{
-			for(int x = 0; x < 40; x++)
+		
+			for(int y = 0; y < 30; y++)
 			{
-				int Index = ONSCREEN_MAPARRAY[x][y];
+				for(int x = 0; x < 40; x++)
+				{
+					if(k == 0) // Tile layer
+					{
+					int Index = ONSCREEN_MAPARRAY[x][y][0];
 				
-				double TileRow = floor(Index/25);
-				int TileCol = Index % 25;
+					double TileRow = floor(Index/25);
+					int TileCol = Index % 25;
 				
-				CropT.x = TileCol * 16;
-				CropT.y = TileRow * 16;
-				LocT.y = 16 * y;
-				LocT.x = 16 * x;
+					CropT.x = TileCol * 16;
+					CropT.y = TileRow * 16;
+					LocT.y = 16 * y;
+					LocT.x = 16 * x;
 				
-				SDL_RenderCopy(Ren0,MAPT0, &CropT,&LocT);
+					SDL_RenderCopy(Ren0,MAPT0, &CropT,&LocT);
+					}
+					if(k == 1) // Object layer
+					{
+					int Index = ONSCREEN_MAPARRAY[x][y][1];
+				
+					double TileRow = floor(Index/25);
+					int TileCol = Index % 25;dd
+				
+					CropT.x = TileCol * 16;
+					CropT.y = TileRow * 16;
+					LocT.y = 16 * y;
+					LocT.x = 16 * x;
+				
+					SDL_RenderCopy(Ren0,MAPT1, &CropT,&LocT);
+					}
+				}	
 			}
 		}
 	}

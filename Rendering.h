@@ -10,8 +10,8 @@ void Draw_Background()
 	SDL_RenderClear(Ren0);
 }
 //test/////////
-loadlevel LLd;
-GUI GUI0;
+loadlevel *LLd = new loadlevel;
+GUI *GUI0 = new GUI;
 //test/////////
 void Draw_Things()
 {
@@ -24,8 +24,8 @@ void Draw_Things()
 	 
 	 //Drawshit();
 	 //LLd.drawtest();
-	 LLd.drawmap0();
-	 GUI0.Draw_CONT();
+	 LLd->drawmap0();
+	 GUI0->Draw_CONT();
 	 ///test///
 
 
