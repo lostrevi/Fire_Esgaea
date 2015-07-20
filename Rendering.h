@@ -26,6 +26,7 @@ void Draw_Things()
 	 //LLd.drawtest();
 	 LLd->drawmap0();
 	 GUI0->Draw_CONT();
+	 GUI0->UI_text_Draw();
 	 ///test///
 
 

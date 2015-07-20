@@ -53,9 +53,120 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 		SDL_Rect Crop1;
 		SDL_Rect Loc1;
 		
+		//text test
+		TTF_Font *font = NULL;
+		SDL_Surface *Message;
+		SDL_Texture *textT;
+		SDL_Rect textRect;
+		SDL_Color textcolor;
+		//text test
+		TTF_Font *Font = NULL;
+		SDL_Surface *message;
+		SDL_Texture *text;
+		SDL_Rect LocT;
+		SDL_Color Tcolor0;
+		
 	public:
 		int SL_X = 0, SL_Y = 0;
+		int TextData[5][20]; // the first is for loct.x, loct.y, loct.w, loct.h, other. and the 2nd array is per text.
+		std::string Text_array[20]; // this is for TextData array it is what to put into the string before setting it up far draw.
+		
+	void UI_textINIT()
+	{
+		//temp
+		for(int j = 0; j < 20; j++)
+		{
+			for(int i = 0; i < 5; i++)
+			{
+				TextData[i][j] = 0;
+			}
+			Text_array[j] = "00000";
+		}
+		//temp
+		Tcolor0.r=0;Tcolor0.g=0;Tcolor0.b=0;Tcolor0.a=255;
+		Font = TTF_OpenFont("Data/Font.ttf",10);
+		if(Font == NULL)
+		output("Font.ttf has failed to load",1);
+	}
+	void UI_text_Draw()
+	{
+		TextData[0][0] = 14+32;//x
+		TextData[1][0] = 332;//y
+		TextData[2][0] = 128;//xc
+		TextData[3][0] = 13;//xc
+		
+		TextData[0][1] = 155;//x
+		TextData[1][1] = 366+32;//y
+		TextData[2][1] = 80;//xc
+		TextData[3][1] = 13;//xc
+		
+		for(int i = 1; i < 7; i++)
+		{
+			TextData[0][i] = 155+32;//x
+			TextData[1][i] = 366+(i*16);//y
+			TextData[2][i] = 80;//xc
+			TextData[3][i] = 13;//xc
+		}
+		for(int i = 7; i < 13; i++)
+		{
+			TextData[0][i] = 155+32+96;//x
+			TextData[1][i] = 366+((i-6)*16);//y
+			TextData[2][i] = 80;//xc
+			TextData[3][i] = 13;//xc
+		}
+		for(int i = 13; i < 19; i++)
+		{
+			TextData[0][i] = 155+32+96+96;//x
+			TextData[1][i] = 366+((i-12)*16);//y
+			TextData[2][i] = 80;//xc
+			TextData[3][i] = 13;//xc
+		}
+			TextData[0][19] = 155+32+96+96+96;//x
+			TextData[1][19] = 366+32;//y
+			TextData[2][19] = 80;//xc
+			TextData[3][19] = 13;//xc
+			
+		//add the rest with a for loop since the will be in less random locations
+		
+		for(int j = 0; j < 20; j++)
+		{
+			SDL_Texture *TEMP0;
 
+				LocT.x = TextData[0][j];
+				LocT.y = TextData[1][j];
+				LocT.w = TextData[2][j];
+				LocT.h = TextData[3][j];
+			
+			message = TTF_RenderText_Solid(Font, Text_array[j].c_str(),Tcolor0);
+			TEMP0 = SDL_CreateTextureFromSurface(Ren0,message);
+			SDL_FreeSurface(message);
+			
+			SDL_QueryTexture(TEMP0,NULL,NULL,&LocT.w,&LocT.h);
+			
+			SDL_RenderCopy(Ren0,TEMP0, NULL,&LocT);
+			
+			SDL_DestroyTexture (TEMP0);
+			//text = NULL;
+		}
+	}
+	
+
+	void Text_test()
+	{
+		textcolor.r=255;textcolor.g=255;textcolor.b=255;textcolor.a=255;
+		font = TTF_OpenFont("Data/Font.ttf",10);
+		if(font == NULL)
+		output("Font file failed to load!",1);
+		
+		Message = TTF_RenderText_Solid( font, "THIS IS TEST TEXT!", textcolor);
+		textT = SDL_CreateTextureFromSurface(Ren0,Message);
+		SDL_FreeSurface(Message);
+		
+		SDL_QueryTexture(textT,NULL,NULL,&textRect.w,&textRect.h);
+		
+		textRect.x=0;textRect.y=0;textRect.w=100;textRect.h=50;
+		
+	}
 	
 	void Selector_CONT()
 	{
@@ -86,6 +197,8 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 		
 		if(HudUP)
 		SDL_RenderCopy(Ren0,GUIT1, &Crop1,&Loc1); 
+		
+		//SDL_RenderCopy(Ren0,textT, NULL,&textRect);
 		
 	}
 	

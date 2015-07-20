@@ -43,6 +43,8 @@ int main(int argc, char *argv[])
 	//Loadlevel("","");//temp
     GUI0->Selector_CONT();
     GUI0->HUD_Dispay();
+    GUI0->Text_test();
+    GUI0->UI_textINIT();
 	//NPC0.INIT_loadmap("Override","DATA/BUTT.txt"); //just for testing This file is no longer here.
 	
 	//for frame rate.

@@ -311,7 +311,7 @@ class loadlevel
 					int Index = ONSCREEN_MAPARRAY[x][y][1];
 				
 					double TileRow = floor(Index/25);
-					int TileCol = Index % 25;dd
+					int TileCol = Index % 25;
 				
 					CropT.x = TileCol * 16;
 					CropT.y = TileRow * 16;

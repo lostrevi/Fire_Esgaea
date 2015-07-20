@@ -24,6 +24,18 @@ bool INIT_SUBSYSTEMS()
 		std::cout << "SDL_Init Error: " << SDL_GetError() << std::endl;
 		return 1;
 	}
+		
+	if(TTF_Init() != 0)
+	{
+		std::cout << "TTF_Init Error: " << TTF_GetError() << std::endl;
+		return 1;
+	}
+	if(IMG_Init(IMG_INIT_PNG) != 0)
+	{
+		std::cout << "IMG_Init has failed." << std::endl;
+		return 1;
+	}
+	
 }
 // Creates our window win0
 bool INIT_WINDOW()
