@@ -66,11 +66,319 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 		SDL_Rect LocT;
 		SDL_Color Tcolor0;
 		
+		SDL_Texture *GUI_OBJ;
+		SDL_Rect GUI_OBJ_icon;
+		
 	public:
 		int SL_X = 0, SL_Y = 0;
 		int TextData[5][20]; // the first is for loct.x, loct.y, loct.w, loct.h, other. and the 2nd array is per text.
 		std::string Text_array[20]; // this is for TextData array it is what to put into the string before setting it up far draw.
+		std::string Object_array[17][500][250]; // the first holds all 16 base stats from a file on ombject layer and the 2nd will be object id 
+		bool softhudup = false;
 		
+	
+	void Object_looker(loadlevel *LLD)// looks if the curser is over an object
+	{
+		//for(int j = 20< ) // this will need to be worked on after i get the SIDS setup for the objects and i'll need to add 20/20 and sucks with dynimic ints to test that it works.
+		if(LLD->ONSCREEN_MAPARRAY[LocX.x/16][LocX.y/16][1] == 3)
+		{
+			softhudup = true;
+		}
+		else if(LLD->ONSCREEN_MAPARRAY[LocX.x/16][LocX.y/16][1] != 3)
+		{
+			softhudup = false;
+		}
+	}
+		
+	void Get_object_UI(std::string Path,std::string Name,int ID,int SID) //ID is for the object type and SID is for eatch one of that type.
+	{
+		//testing by having this load strate into one object Rock0 so this will be more dynimc sooonnnn i'm sleepyyyyyyy
+		enum OSTATE { OID, icon, OName, LV, HP, SP, ATK, DEF, INT, Res, Spd, HIT, Mov, Txp, Next, CTH, SIDE};
+		
+		OSTATE State;
+		
+		std::string Output;
+		std::ifstream OBJ_FILE("Data/Objects/Rock0/Rock0.txt");// this will be Path.c_str() after testing is done and will be used in another funtion that can load all of them into strings. but for now it will be loading Rock0 for testing.
+		
+		if(OBJ_FILE.is_open())
+		{
+			
+			std::string line, value;
+			if(line.empty())
+			int space;
+			
+			
+			while(!OBJ_FILE.eof())
+			{
+				std::getline(OBJ_FILE, line);
+				
+				if(line.find("[ID]") != std::string::npos)
+				{
+					State = OID;
+					continue;
+				}
+				if(line.find("[icon]") != std::string::npos)
+				{
+					State = icon;
+					continue;
+				}
+				if(line.find("[Name]") != std::string::npos)
+				{
+					State = OName;
+					continue;
+				}
+				if(line.find("[LVshouldb1]") != std::string::npos)
+				{
+					State = LV;
+					continue;
+				}
+				if(line.find("[HP]") != std::string::npos)
+				{
+					State = HP;
+					continue;
+				}
+				if(line.find("[SP]") != std::string::npos)
+				{
+					State = SP;
+					continue;
+				}
+				if(line.find("[ATK]") != std::string::npos)
+				{
+					State = ATK;
+					continue;
+				}
+				if(line.find("[DEF]") != std::string::npos)
+				{
+					State = DEF;
+					continue;
+				}
+				if(line.find("[INT]") != std::string::npos)
+				{
+					State = INT;
+					continue;
+				}
+				if(line.find("[Res]") != std::string::npos)
+				{
+					State = Res;
+					continue;
+				}
+				if(line.find("[Spd]") != std::string::npos)
+				{
+					State = Spd;
+					continue;
+				}
+				if(line.find("[HIT]") != std::string::npos)
+				{
+					State = HIT;
+					continue;
+				}
+				if(line.find("[Mov]") != std::string::npos)
+				{
+					State = Mov;
+					continue;
+				}
+				if(line.find("[Txp]") != std::string::npos)
+				{
+					State = Txp;
+					continue;
+				}
+				if(line.find("[Next]") != std::string::npos)
+				{
+					State = Next;
+					continue;
+				}
+				if(line.find("[CTH]") != std::string::npos)
+				{
+					State = CTH;
+					continue;
+				}
+				if(line.find("[SIDE]") != std::string::npos)
+				{
+					State = SIDE;
+					continue;
+				}
+				//////////STATE SWTICH!!!!!! ///////////////
+				
+				switch(State)
+				{
+					case OID:
+					{
+						Object_array[0][ID][SID] = line;
+						break;
+					} 
+					
+					case icon:
+					{
+						Object_array[1][ID][SID] = line;
+						break;
+					} 
+					
+					case OName:
+					{
+						Object_array[2][ID][SID] = line;
+						break;
+					} 
+					
+					case LV:
+					{
+						Object_array[3][ID][SID] = line;
+						break;
+					} 
+					
+					case HP:
+					{
+						Object_array[4][ID][SID] = line;
+						break;
+					}
+					
+					case SP:
+					{
+						Object_array[5][ID][SID] = line;
+						break;
+					} 
+					
+					case ATK:
+					{
+						Object_array[6][ID][SID] = line;
+						break;
+					} 
+					
+					case DEF:
+					{
+						Object_array[7][ID][SID] = line;
+						break;
+					} 
+					
+					case INT:
+					{
+						Object_array[8][ID][SID] = line;
+						break;
+					} 
+					
+					case Res:
+					{
+						Object_array[9][ID][SID] = line;
+						break;
+					} 
+					
+					case Spd:
+					{
+						Object_array[10][ID][SID] = line;
+						break;
+					} 
+					
+					case HIT:
+					{
+						Object_array[11][ID][SID] = line;
+						break;
+					} 
+					
+					case Mov:
+					{
+						Object_array[12][ID][SID] = line;
+						break;
+					} 
+					
+					case Txp:
+					{
+						Object_array[13][ID][SID] = line;
+						break;
+					} 
+					
+					case Next:
+					{
+						Object_array[14][ID][SID] = line;
+						break;
+					} 
+					
+					case CTH:
+					{
+						Object_array[15][ID][SID] = line;
+						break;
+					} 
+					
+					case SIDE:
+					{
+						Object_array[16][ID][SID] = line;
+						break;
+					} 
+					
+				}
+				
+				
+			}
+			OBJ_FILE.close();
+		}
+		
+	}
+	void OBJ_GUI_TEXT_SEL(int IndexOBJ, int SID) // put the values in the gui It will need to put them as an int array to so they can be effected or somthing like that.
+	{
+		Text_array[0] = Object_array[2][IndexOBJ][SID];//name // could use a for loop but i'm not because these might change around so i'm keeping it this way for easyer editing.
+		Text_array[1] = Object_array[3][IndexOBJ][SID];//LV
+		Text_array[2] = Object_array[4][IndexOBJ][SID];//HP
+		Text_array[3] = Object_array[5][IndexOBJ][SID];//SP
+		Text_array[4] = Object_array[6][IndexOBJ][SID];//ATK
+		Text_array[5] = Object_array[7][IndexOBJ][SID];//DEF
+		Text_array[6] = Object_array[8][IndexOBJ][SID];//INT
+		Text_array[7] = Object_array[9][IndexOBJ][SID];//Res
+		Text_array[8] = Object_array[10][IndexOBJ][SID];//Spd
+		Text_array[9] = Object_array[11][IndexOBJ][SID];//HIT
+		Text_array[10] = Object_array[12][IndexOBJ][SID];//MOV
+		Text_array[11] = Object_array[13][IndexOBJ][SID];//Txp
+		Text_array[12] = Object_array[14][IndexOBJ][SID];//Next
+		Text_array[13] = Object_array[15][IndexOBJ][SID];//CTH
+		
+		Text_array[19] = Object_array[16][IndexOBJ][SID];//SIDE
+		
+		OBJ_UI_DRAW_SET(IndexOBJ,SID);
+	}
+	
+	void OBJ_UI_DRAW_SET(int IndexOBJ,int SID)
+	{
+			SDL_Surface *TEMP_S;
+			TEMP_S = IMG_Load(Object_array[1][IndexOBJ][SID].c_str());
+			GUI_OBJ = SDL_CreateTextureFromSurface(Ren0,TEMP_S);
+		    SDL_FreeSurface(TEMP_S);
+			
+			SDL_QueryTexture(GUI_OBJ, NULL, NULL, &GUI_OBJ_icon.w ,&GUI_OBJ_icon.h );
+			
+			GUI_OBJ_icon.x = 3;
+			GUI_OBJ_icon.y = 351;
+			GUI_OBJ_icon.w = 128;
+			GUI_OBJ_icon.h = 128;
+	}
+
+	void UI_OVERLAY_1() // I'm going to move the draw for the text and such up here.
+	{
+			
+			
+			SDL_RenderCopy(Ren0,GUIT1, &Crop1,&Loc1); 
+			UI_text_Draw();
+			SOFT_UI_Backdrop(Text_array[19]);
+			SDL_RenderCopy(Ren0,GUI_OBJ, NULL,&GUI_OBJ_icon);
+			
+	}
+	void SOFT_UI_Backdrop(std::string fact)
+	{
+		std::string Path0;
+			if(fact == "Blue")
+			Path0 = "Data/UI/Factions/Blue.bmp";
+			if(fact == "Object")
+			Path0 = "Data/UI/Factions/Object.bmp";
+			
+			
+			SDL_Surface *TEMP_S;
+			SDL_Texture *Backdrop;
+			TEMP_S = IMG_Load(Path0.c_str());
+			Backdrop = SDL_CreateTextureFromSurface(Ren0,TEMP_S);
+		    SDL_FreeSurface(TEMP_S);
+		    
+		    SDL_QueryTexture(Backdrop, NULL, NULL, &GUI_OBJ_icon.w ,&GUI_OBJ_icon.h );
+		    
+		    SDL_RenderCopy(Ren0,Backdrop,NULL,&GUI_OBJ_icon);
+		    SDL_DestroyTexture (Backdrop);
+	}
+	
 	void UI_textINIT()
 	{
 		//temp
@@ -83,7 +391,7 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 			Text_array[j] = "00000";
 		}
 		//temp
-		Tcolor0.r=0;Tcolor0.g=0;Tcolor0.b=0;Tcolor0.a=255;
+		Tcolor0.r=255;Tcolor0.g=255;Tcolor0.b=255;Tcolor0.a=255;
 		Font = TTF_OpenFont("Data/Font.ttf",10);
 		if(Font == NULL)
 		output("Font.ttf has failed to load",1);
@@ -109,20 +417,20 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 		}
 		for(int i = 7; i < 13; i++)
 		{
-			TextData[0][i] = 155+32+96;//x
+			TextData[0][i] = 155+32+128;//x
 			TextData[1][i] = 366+((i-6)*16);//y
 			TextData[2][i] = 80;//xc
 			TextData[3][i] = 13;//xc
 		}
 		for(int i = 13; i < 19; i++)
 		{
-			TextData[0][i] = 155+32+96+96;//x
+			TextData[0][i] = 155+32+128+128;//x
 			TextData[1][i] = 366+((i-12)*16);//y
 			TextData[2][i] = 80;//xc
 			TextData[3][i] = 13;//xc
 		}
-			TextData[0][19] = 155+32+96+96+96;//x
-			TextData[1][19] = 366+32;//y
+			TextData[0][19] = 155+32+128+128+128;//x
+			TextData[1][19] = 366+16;//y
 			TextData[2][19] = 80;//xc
 			TextData[3][19] = 13;//xc
 			
@@ -180,7 +488,7 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 		
 		LocX.x = CropX.x = 0;
 		LocX.y = CropX.y = 0;
-		LocX.w = CropX.w = 16;
+		LocX.w = CropX.w = 16; 
 		LocX.h = CropX.h = 16;
 		
 		LocX.x = 32;
@@ -191,12 +499,18 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 	}	
 	void Draw_CONT()
 	{
+		
+			if(!softhudup)
+			CropX.y = 0;
+			else if(softhudup)
+			CropX.y = 16;
+	
 		CropX.x = 16 * int(((SDL_GetTicks() / 100) % 5)); // animate
 		
 		SDL_RenderCopy(Ren0,GUIT0, &CropX,&LocX); // draw to render
 		
-		if(HudUP)
-		SDL_RenderCopy(Ren0,GUIT1, &Crop1,&Loc1); 
+		//if(HudUP)
+		
 		
 		//SDL_RenderCopy(Ren0,textT, NULL,&textRect);
 		
@@ -276,17 +590,10 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 		///////////////////////////////////////////////////////////////////////////////////////////////////////
 		else if (a == 10) //change to starting a funtion with bring up the seletion GUI ent.
 		{
-			if(CropX.y == 0)
-			{
-				CropX.y = 16;
-				HudUP = true;
-			}
-			
-			else if(CropX.y == 16)
-			{
-				CropX.y = 0;
-				HudUP = false;
-			}
+			if(softhudup)
+			softhudup=false;
+			else if(!softhudup)
+			softhudup=true;
 			
 		}
 		else

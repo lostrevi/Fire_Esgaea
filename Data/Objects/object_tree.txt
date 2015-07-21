@@ -1,4 +1,6 @@
 //DO NOT USE YET THIS IS JUST FOR TESTING RIGHT NOW//
 //NAME IDNUMBER PATH
+[objectstack]
+1
 [objectlist]
-Rock0 1 Data/UI/Objects/Rock0/Rock0.txt
+Rock0 3 Data/Objects/Rock0/Rock0.txt

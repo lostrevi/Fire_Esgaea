@@ -15,8 +15,10 @@ GUI *GUI0 = new GUI;
 //test/////////
 void Draw_Things()
 {
-
 	
+	//checkers// might make ther own funtion and put it in main
+	GUI0->Object_looker(LLd);
+	//checkers//	
 	 Draw_Background();
 	 
 
@@ -26,7 +28,8 @@ void Draw_Things()
 	 //LLd.drawtest();
 	 LLd->drawmap0();
 	 GUI0->Draw_CONT();
-	 GUI0->UI_text_Draw();
+	 if(GUI0->softhudup)
+	 GUI0->UI_OVERLAY_1();
 	 ///test///
 
 
