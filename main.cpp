@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
     GUI0->Text_test();
     GUI0->UI_textINIT();
     //TESTING HARDDDDDDDD REMOVE WHEN TREE IS FINISHED
-    GUI0->Get_object_UI("","",3,0); // temp for testing 
+    GUI0->Get_object_UI(LLd,"","",3); // temp for testing 
     GUI0->OBJ_GUI_TEXT_SEL(3,0); // temp for testing
     ////////////////////////////////////////////////
 	//NPC0.INIT_loadmap("Override","DATA/BUTT.txt"); //just for testing This file is no longer here.

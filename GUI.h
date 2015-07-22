@@ -74,7 +74,10 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 		int TextData[5][20]; // the first is for loct.x, loct.y, loct.w, loct.h, other. and the 2nd array is per text.
 		std::string Text_array[20]; // this is for TextData array it is what to put into the string before setting it up far draw.
 		std::string Object_array[17][500][250]; // the first holds all 16 base stats from a file on ombject layer and the 2nd will be object id 
+		int Object_Stat_array[17][500][250][2]; // same as the string but th 4th is for total and ative
 		bool softhudup = false;
+		
+		bool levelupforcer = false;
 		
 	
 	void Object_looker(loadlevel *LLD)// looks if the curser is over an object
@@ -82,7 +85,20 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 		//for(int j = 20< ) // this will need to be worked on after i get the SIDS setup for the objects and i'll need to add 20/20 and sucks with dynimic ints to test that it works.
 		if(LLD->ONSCREEN_MAPARRAY[LocX.x/16][LocX.y/16][1] == 3)
 		{
+			int SIDO = OBJ_SID_FINDER(LLD,1,3); // the 1 is for layer and the 3 is for object witch will need to be changed.
+						//TESTING//
+						if(levelupforcer)
+						{
+							Object_Stat_array[3][3][SIDO][0] ++;
+							levelupforcer = false;
+						}
+						///////////
+			
+			OBJ_GUI_TEXT_SEL(3,SIDO);
 			softhudup = true;
+			
+
+			
 		}
 		else if(LLD->ONSCREEN_MAPARRAY[LocX.x/16][LocX.y/16][1] != 3)
 		{
@@ -90,7 +106,7 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 		}
 	}
 		
-	void Get_object_UI(std::string Path,std::string Name,int ID,int SID) //ID is for the object type and SID is for eatch one of that type.
+	void Get_object_UI(loadlevel *LLDa,std::string Path,std::string Name,int ID) //ID is for the object type and SID is for eatch one of that type.
 	{
 		//testing by having this load strate into one object Rock0 so this will be more dynimc sooonnnn i'm sleepyyyyyyy
 		enum OSTATE { OID, icon, OName, LV, HP, SP, ATK, DEF, INT, Res, Spd, HIT, Mov, Txp, Next, CTH, SIDE};
@@ -203,103 +219,122 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 				{
 					case OID:
 					{
-						Object_array[0][ID][SID] = line;
+						Object_array[0][ID][0] = line;
+						Object_Stat_array[0][ID][0][0] = atoi(line.c_str());
 						break;
 					} 
 					
 					case icon:
 					{
-						Object_array[1][ID][SID] = line;
+						Object_array[1][ID][0] = line;
+						//Object_Stat_array[0][ID][0] = atoi(line.c_str());
 						break;
 					} 
 					
 					case OName:
 					{
-						Object_array[2][ID][SID] = line;
+						Object_array[2][ID][0] = line;
+						//Object_Stat_array[0][ID][0] = atoi(line.c_str());
 						break;
 					} 
 					
 					case LV:
 					{
-						Object_array[3][ID][SID] = line;
+						Object_array[3][ID][0] = line;
+						Object_Stat_array[3][ID][0][0] = atoi(line.c_str());
 						break;
 					} 
 					
 					case HP:
 					{
-						Object_array[4][ID][SID] = line;
+						Object_array[4][ID][0] = line;
+						Object_Stat_array[4][ID][0][0] = atoi(line.c_str());
+						Object_Stat_array[4][ID][0][1] = atoi(line.c_str());
 						break;
 					}
 					
 					case SP:
 					{
-						Object_array[5][ID][SID] = line;
+						Object_array[5][ID][0] = line;
+						Object_Stat_array[5][ID][0][0] = atoi(line.c_str());
+						Object_Stat_array[5][ID][0][1] = atoi(line.c_str());
 						break;
 					} 
 					
 					case ATK:
 					{
-						Object_array[6][ID][SID] = line;
+						Object_array[6][ID][0] = line;
+						Object_Stat_array[6][ID][0][0] = atoi(line.c_str());
 						break;
 					} 
 					
 					case DEF:
 					{
-						Object_array[7][ID][SID] = line;
+						Object_array[7][ID][0] = line;
+						Object_Stat_array[7][ID][0][0] = atoi(line.c_str());
 						break;
 					} 
 					
 					case INT:
 					{
-						Object_array[8][ID][SID] = line;
+						Object_array[8][ID][0] = line;
+						Object_Stat_array[8][ID][0][0] = atoi(line.c_str());
 						break;
 					} 
 					
 					case Res:
 					{
-						Object_array[9][ID][SID] = line;
+						Object_array[9][ID][0] = line;
+						Object_Stat_array[9][ID][0][0] = atoi(line.c_str());
 						break;
 					} 
 					
 					case Spd:
 					{
-						Object_array[10][ID][SID] = line;
+						Object_array[10][ID][0] = line;
+						Object_Stat_array[10][ID][0][0] = atoi(line.c_str());
 						break;
 					} 
 					
 					case HIT:
 					{
-						Object_array[11][ID][SID] = line;
+						Object_array[11][ID][0] = line;
+						Object_Stat_array[11][ID][0][0] = atoi(line.c_str());
 						break;
 					} 
 					
 					case Mov:
 					{
-						Object_array[12][ID][SID] = line;
+						Object_array[12][ID][0] = line;
+						Object_Stat_array[12][ID][0][0] = atoi(line.c_str());
 						break;
 					} 
 					
 					case Txp:
 					{
-						Object_array[13][ID][SID] = line;
+						Object_array[13][ID][0] = line;
+						Object_Stat_array[13][ID][0][0] = atoi(line.c_str());
 						break;
 					} 
 					
 					case Next:
 					{
-						Object_array[14][ID][SID] = line;
+						Object_array[14][ID][0] = line;
+						Object_Stat_array[14][ID][0][0] = atoi(line.c_str());
 						break;
 					} 
 					
 					case CTH:
 					{
-						Object_array[15][ID][SID] = line;
+						Object_array[15][ID][0] = line;
+						Object_Stat_array[15][ID][0][0] = atoi(line.c_str());
 						break;
 					} 
 					
 					case SIDE:
 					{
-						Object_array[16][ID][SID] = line;
+						Object_array[16][ID][0] = line;
+						//Object_Stat_array[16][ID][0] = atoi(line.c_str());
 						break;
 					} 
 					
@@ -310,23 +345,195 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 			OBJ_FILE.close();
 		}
 		
+		OBJ_SID_Setter(LLDa,1,ID); // nice
+		
 	}
+	void OBJ_SID_Setter(loadlevel *LLD,int layer,int IndexOBJ) // this is for one object at the moment it should be for all after i get this peice working.
+	{
+		layer = 1; // this is object layer.
+		int SID = 0;
+		
+		for(int j = 0; j < 500; j++)
+		{
+			for(int i = 0; i < 500; i++)
+			{
+				if(LLD->REAL_MAPARRAY[i][j][layer] == IndexOBJ)
+				{
+					if(SID != 0)
+					{
+					std::string Temp_array[17][1][1];
+					for(int F = 0; F < 17; F++) // takes from base file and turns into shit.
+					{
+						Temp_array[F][0][0] = Object_array[F][IndexOBJ][0];
+					}
+					
+					for(int G = 0; G < 17; G++)
+					{
+					Object_array[G][IndexOBJ][SID] = Temp_array[G][0][0];
+					
+						if(G == 4)
+						{
+							Object_Stat_array[G][IndexOBJ][SID][0] = atoi(Temp_array[G][0][0].c_str());
+							Object_Stat_array[G][IndexOBJ][SID][1] = atoi(Temp_array[G][0][0].c_str());
+							
+						}
+						else if(G == 5)
+						{
+							Object_Stat_array[G][IndexOBJ][SID][0] = atoi(Temp_array[G][0][0].c_str());
+							Object_Stat_array[G][IndexOBJ][SID][1] = atoi(Temp_array[G][0][0].c_str());
+							
+						}
+						else 
+						{
+						Object_Stat_array[G][IndexOBJ][SID][0] = atoi(Temp_array[G][0][0].c_str());
+						}
+						
+					}
+					
+					}
+				 SID++;
+				 //output("A OBJ SID WAS SET!",0);
+				
+				}
+				
+			}
+		}
+		
+	}
+	
+	int OBJ_SID_FINDER(loadlevel *LLD,int layer,int IndexOBJ)
+	{
+		layer = 1; // 1 is the object layer
+		IndexOBJ = 3; // this is for testing.
+		//LocX
+		//if(LLD->REAL_MAPARRAY[LocX.x/16][LocX.y/16][layer])
+
+		int idcounter = 0;
+		for(int j = 0; j < 1+((LocX.y/16)+(LLD->Yoff));j++)
+		{
+			if(j == ((LocX.y/16) + LLD->Yoff))
+			{
+			for(int i = 0; i < 1+(LocX.x/16)+(LLD->Xoff);i++)
+			{
+				if(LLD->REAL_MAPARRAY[i][j][layer] == IndexOBJ)
+				{
+					idcounter++;
+				}
+			}
+			}
+			else
+			{
+			
+			for(int i = 0; i < 500;i++)
+			{
+				if(LLD->REAL_MAPARRAY[i][j][layer] == IndexOBJ)
+				{
+					idcounter++;
+				}
+			}
+			}
+			
+		}
+
+		
+		return idcounter-1;
+		
+		
+		
+		
+		for(int j = 0; j < 500; j++)
+		{
+			for(int i = 0; i < 500; i++)
+			{
+				for(int SIDF = 0; SIDF < 500; SIDF++)
+				{
+				
+					if(LLD->REAL_MAPARRAY[i][j][layer] == IndexOBJ)
+					{
+					
+					
+					}
+				}
+			}
+		}
+		
+		
+	}
+	
+	void Level_CHECK(int IndexOBJ, int SID, int LEVEL)//checks level;
+	{
+		// NEED TO ADD CLASS!!!!!!!!!!!!!!!!!!!!!!!!!!!! WITH SP LEVEING !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		int HLVC = atoi(Object_array[4][IndexOBJ][SID].c_str()); // checking HP to see if it has leved
+		int HRL = Object_Stat_array[4][IndexOBJ][SID][0]; //checking HP
+		int LV = Object_Stat_array[3][IndexOBJ][SID][0]; //get lv;
+		if(HRL != (HLVC*LV))
+		{
+		
+		//	for(int A = 0; A < LEVEL+1;A++)
+		//	{
+		int ST5 = atoi(Object_array[5][IndexOBJ][SID].c_str());
+		int ST6 = atoi(Object_array[6][IndexOBJ][SID].c_str());
+		int ST7 = atoi(Object_array[7][IndexOBJ][SID].c_str());
+		int ST8 = atoi(Object_array[8][IndexOBJ][SID].c_str());
+		int ST9 = atoi(Object_array[9][IndexOBJ][SID].c_str());
+		int ST10 = atoi(Object_array[10][IndexOBJ][SID].c_str());
+		int ST11 = atoi(Object_array[11][IndexOBJ][SID].c_str());
+		
+			int lv = Object_Stat_array[3][IndexOBJ][SID][0]; //get lv;
+		
+			Object_Stat_array[4][IndexOBJ][SID][0]= HLVC * LV; // HP                NOT FINAL for the incress in any of theses
+			Object_Stat_array[4][IndexOBJ][SID][1]= HLVC * lv;
+			
+			Object_Stat_array[5][IndexOBJ][SID][0]= ST5 * (lv); // SP
+			Object_Stat_array[5][IndexOBJ][SID][1]= ST5 * (lv); // SP
+			
+			Object_Stat_array[6][IndexOBJ][SID][0] = ST6 * (lv) ;//ATK
+			Object_Stat_array[7][IndexOBJ][SID][0] = ST7 * (lv);//DEF
+			Object_Stat_array[8][IndexOBJ][SID][0] = ST8 * (lv);//INT
+			Object_Stat_array[9][IndexOBJ][SID][0] = ST9 * lv;//Res
+			Object_Stat_array[10][IndexOBJ][SID][0] = ST10 * (lv);//Spd
+			Object_Stat_array[11][IndexOBJ][SID][0] = ST11 * (lv);//HIT
+		//	}
+		}
+	}
+	
 	void OBJ_GUI_TEXT_SEL(int IndexOBJ, int SID) // put the values in the gui It will need to put them as an int array to so they can be effected or somthing like that.
 	{
+		
+		Level_CHECK(IndexOBJ,SID,Object_Stat_array[3][IndexOBJ][SID][0]);
+		
 		Text_array[0] = Object_array[2][IndexOBJ][SID];//name // could use a for loop but i'm not because these might change around so i'm keeping it this way for easyer editing.
-		Text_array[1] = Object_array[3][IndexOBJ][SID];//LV
-		Text_array[2] = Object_array[4][IndexOBJ][SID];//HP
-		Text_array[3] = Object_array[5][IndexOBJ][SID];//SP
-		Text_array[4] = Object_array[6][IndexOBJ][SID];//ATK
-		Text_array[5] = Object_array[7][IndexOBJ][SID];//DEF
-		Text_array[6] = Object_array[8][IndexOBJ][SID];//INT
-		Text_array[7] = Object_array[9][IndexOBJ][SID];//Res
-		Text_array[8] = Object_array[10][IndexOBJ][SID];//Spd
-		Text_array[9] = Object_array[11][IndexOBJ][SID];//HIT
-		Text_array[10] = Object_array[12][IndexOBJ][SID];//MOV
-		Text_array[11] = Object_array[13][IndexOBJ][SID];//Txp
-		Text_array[12] = Object_array[14][IndexOBJ][SID];//Next
-		Text_array[13] = Object_array[15][IndexOBJ][SID];//CTH
+		///////////////////////////////////////////////////////////////////////////
+		Text_array[1] = std::to_string(Object_Stat_array[3][IndexOBJ][SID][0]);//LV
+		
+		//Text_array[2] = Object_array[4][IndexOBJ][SID];//HP
+		std::string temp = std::to_string((Object_Stat_array[4][IndexOBJ][SID][1]) ); // HP ACTIVE   THIS WILL NEED A MATH CHECK WHEN IN LEVELING SYSTEM.
+		std::string temp2 = std::to_string((Object_Stat_array[4][IndexOBJ][SID][0]) ); // HP TOTAL   ALL WILL NEED A VOID TO CHANGE THERE LEVELS AND SUCH.
+		Text_array[2] = temp + " / " + temp2;
+		
+		//Text_array[3] = Object_array[5][IndexOBJ][SID];//SP
+		temp = std::to_string((Object_Stat_array[5][IndexOBJ][SID][1]) ); // SP ACTIVE   
+		temp2 = std::to_string((Object_Stat_array[5][IndexOBJ][SID][0]) ); // SP TOTAL   
+		Text_array[3] = temp + " / " + temp2;
+		
+		Text_array[4] = std::to_string((Object_Stat_array[6][IndexOBJ][SID][0]) );//ATK
+		Text_array[5] = std::to_string((Object_Stat_array[7][IndexOBJ][SID][0]) );//DEF
+		Text_array[6] = std::to_string((Object_Stat_array[8][IndexOBJ][SID][0]) );//INT
+		Text_array[7] = std::to_string((Object_Stat_array[9][IndexOBJ][SID][0]) );//Res
+		Text_array[8] = std::to_string((Object_Stat_array[10][IndexOBJ][SID][0]) );//Spd
+		Text_array[9] = std::to_string((Object_Stat_array[11][IndexOBJ][SID][0]) );//HIT
+		Text_array[10] = std::to_string((Object_Stat_array[12][IndexOBJ][SID][0]) );//MOV
+		Text_array[11] = std::to_string((Object_Stat_array[13][IndexOBJ][SID][0]) );//Txp
+		Text_array[12] = std::to_string((Object_Stat_array[14][IndexOBJ][SID][0]) );//Next
+		Text_array[13] = std::to_string((Object_Stat_array[15][IndexOBJ][SID][0]) );//CTH
+		//////////////////////////////////////////////////////////////////////////////
+		Text_array[16] = std::to_string(SID); //THE SID FOR TESTING
 		
 		Text_array[19] = Object_array[16][IndexOBJ][SID];//SIDE
 		

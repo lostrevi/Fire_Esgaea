@@ -30,11 +30,11 @@ void Key_Presses()
            				 case SDLK_DOWN: GUI0->MovSLT(2,LLd); break;
            				 case SDLK_RIGHT: GUI0->MovSLT(3,LLd); break;
            				 case SDLK_LEFT: GUI0->MovSLT(4,LLd); break;
-           				 case SDLK_1: GUI0->MovSLT(10,LLd); break; //DEBUG
-           				 case SDLK_w: LLd->LevelShifter(1); break; //DEBUG
-           				 case SDLK_s: LLd->LevelShifter(2); break; //DEBUG
-           				 case SDLK_d: LLd->LevelShifter(3); break; //DEBUG
-           				 case SDLK_a: LLd->LevelShifter(4); break; //DEBUG
+           				 case SDLK_1: GUI0->levelupforcer = true; break; //DEBUG
+           				 case SDLK_w: LLd->LevelShifter(1); break; 
+           				 case SDLK_s: LLd->LevelShifter(2); break; 
+           				 case SDLK_d: LLd->LevelShifter(3); break; 
+           				 case SDLK_a: LLd->LevelShifter(4); break; 
            				 
 
             		
