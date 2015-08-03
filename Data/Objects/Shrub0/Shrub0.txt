@@ -1,23 +1,23 @@
 [ID]
-3
+4
 [icon]
-Data/Objects/Rock0/Rock0_icon.bmp
+Data/Objects/Shrub0/Shrub0_icon.bmp
 [Name]
-A Rock
+A Shrub
 [LVshouldb1]
 1
 [HP]
-20
+5
 [SP]
-1
+0
 [ATK]
 0
 [DEF]
-3
+1
 [INT]
 0
 [Res]
-30
+5
 [Spd]
 0
 [HIT]
@@ -27,7 +27,7 @@ A Rock
 [Txp]
 0
 [Next]
-21
+20
 [CTH]
 0
 [SIDE]

@@ -69,6 +69,8 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 		SDL_Texture *GUI_OBJ;
 		SDL_Rect GUI_OBJ_icon;
 		
+		
+		
 	public:
 		int SL_X = 0, SL_Y = 0;
 		int TextData[5][20]; // the first is for loct.x, loct.y, loct.w, loct.h, other. and the 2nd array is per text.
@@ -78,43 +80,179 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 		bool softhudup = false;
 		
 		bool levelupforcer = false;
+		bool new_icon = true;
+		int ATIVEIDs[200];
 		
 	
 	void Object_looker(loadlevel *LLD)// looks if the curser is over an object
 	{
-		//for(int j = 20< ) // this will need to be worked on after i get the SIDS setup for the objects and i'll need to add 20/20 and sucks with dynimic ints to test that it works.
-		if(LLD->ONSCREEN_MAPARRAY[LocX.x/16][LocX.y/16][1] == 3)
-		{
-			int SIDO = OBJ_SID_FINDER(LLD,1,3); // the 1 is for layer and the 3 is for object witch will need to be changed.
-						//TESTING//
-						if(levelupforcer)
-						{
-							Object_Stat_array[3][3][SIDO][0] ++;
-							levelupforcer = false;
-						}
-						///////////
-			
-			OBJ_GUI_TEXT_SEL(3,SIDO);
-			softhudup = true;
-			
+		
+		for(int Zer = 0; Zer < 200; Zer++)
+			{
+				if(ATIVEIDs[Zer] != 0)
+				{
+					int tempAA = ATIVEIDs[Zer];
+					//for(int j = 20< ) // this will need to be worked on after i get the SIDS setup for the objects and i'll need to add 20/20 and sucks with dynimic ints to test that it works.
+					if(LLD->ONSCREEN_MAPARRAY[LocX.x/16][LocX.y/16][1] == tempAA)
+					{
+				
+							//output("YES",1);
+							//output(std::to_string(tempAA),1);
+							 int SIDO = OBJ_SID_FINDER(LLD,1,tempAA); // the 1 is for layer and the 3 is for object witch will need to be changed.
+							 
+										//TESTING//
+										if(levelupforcer)
+										{
+									    	Object_Stat_array[3][tempAA][SIDO][0] ++;
+									    	// this might not need to be at thing OBJ_GUI_TEXT_SEL()
+											levelupforcer = false;
+										}
+										///////////
+							if(new_icon){
+							
+							OBJ_UI_DRAW_SET(tempAA,SIDO);/////////////////////////////////////////////////////////////////MIGHT NOT BE WORKING /////////////////////////////////////////////
+							new_icon = false;
+							}
+							
+							//std::cout << "  THE TEMPAA is : " << tempAA << " The SIDO is : " << SIDO << std::endl;
+							OBJ_GUI_TEXT_SEL(tempAA,SIDO);
+							softhudup = true;
+							
 
+							
+							break;
+							
+					}
+
+							else if(LLD->ONSCREEN_MAPARRAY[LocX.x/16][LocX.y/16][1] != tempAA)
+							{
+								
+								softhudup = false;
+								new_icon = true;
+							}
+		
+			}
 			
-		}
-		else if(LLD->ONSCREEN_MAPARRAY[LocX.x/16][LocX.y/16][1] != 3)
-		{
-			softhudup = false;
 		}
 	}
+	
+	void Get_Object_UI_Tree(loadlevel *LLDa)
+	{
+		int ATVID =0;
+		enum STATE0{ total, NIP};
+		STATE0 State;
+		
+		int totalobjects = 0;
+		
+		std::string Output;
+		std::ifstream TREE_OBJ("Data/Objects/object_tree.txt");
+		
+		if(TREE_OBJ.is_open())
+		{
+			std::string line, value;
+			if(line.empty())
+			int space;
+			
+			
+			while(!TREE_OBJ.eof())
+			{
+				std::getline(TREE_OBJ, line);
+				
+				if(line.find("[objectstack]") != std::string::npos)
+				{
+					State = total;
+					continue;
+				}
+				if(line.find("[objectlist]") != std::string::npos)
+				{
+					State = NIP;
+					continue;
+				}
+				
+				switch(State)
+				{
+					case total:
+						{
+							totalobjects = atoi(line.c_str());
+							break;
+						}
+					case NIP:
+						{
+							std::string TEMP[3][totalobjects];
+							std::stringstream str(line);
+							int lines3 =0;
+							int total = 0;
+							
+							while(!str.eof())
+							{
+								std::getline(str, value, ' ');
+								output("Check1A",1);
+								if(value.length() > 0)
+								{
+									
+									output(value,0);
+									
+									if(lines3 < 3)
+									{
+									TEMP[lines3][0] = value;
+									
+										if(lines3 == 1)
+										{
+											int tempAA2 = atoi(value.c_str());
+											ATIVEIDs[ATVID] = tempAA2;
+											ATVID++;
+										}
+									
+									lines3++;
+									
+									}
+									if(lines3 == 3)
+									{
+									lines3 = 0;
+									total++;
+									int ID = atoi(TEMP[1][0].c_str());
+									std::string AA1 = TEMP[2][0];
+									std::string AA2 = TEMP[0][0];
+									Get_object_UI(LLDa,AA1,AA2,ID);
+									std::cout << "TREE CALL OUT INIT FOR AA1 : " << AA1 << " AA2 : " << AA2 <<  " ID : " << ID << std::endl;
+									
+									}
+									
+								
+								}
+							}
+							std::cout << ATIVEIDs[0] << "|" << ATIVEIDs[1] << std::endl;
+							
+							break;
+						}
+				}
+			
+			}
+			TREE_OBJ.close();
+		}
+	}
+	
 		
 	void Get_object_UI(loadlevel *LLDa,std::string Path,std::string Name,int ID) //ID is for the object type and SID is for eatch one of that type.
 	{
+		for(int a = 0; a < 17; a++)
+		{
+			for(int b = 0; b < 500; b++)
+			{
+				for(int c = 0; c < 250; c++)
+				{
+					Object_array[a][b][c] = "";
+				}
+			}
+		}
+			
 		//testing by having this load strate into one object Rock0 so this will be more dynimc sooonnnn i'm sleepyyyyyyy
 		enum OSTATE { OID, icon, OName, LV, HP, SP, ATK, DEF, INT, Res, Spd, HIT, Mov, Txp, Next, CTH, SIDE};
 		
 		OSTATE State;
 		
 		std::string Output;
-		std::ifstream OBJ_FILE("Data/Objects/Rock0/Rock0.txt");// this will be Path.c_str() after testing is done and will be used in another funtion that can load all of them into strings. but for now it will be loading Rock0 for testing.
+		std::ifstream OBJ_FILE(Path.c_str());// this will be Path.c_str() after testing is done and will be used in another funtion that can load all of them into strings. but for now it will be loading Rock0 for testing.
 		
 		if(OBJ_FILE.is_open())
 		{
@@ -226,15 +364,16 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 					
 					case icon:
 					{
+						
 						Object_array[1][ID][0] = line;
-						//Object_Stat_array[0][ID][0] = atoi(line.c_str());
+
 						break;
 					} 
 					
 					case OName:
 					{
 						Object_array[2][ID][0] = line;
-						//Object_Stat_array[0][ID][0] = atoi(line.c_str());
+
 						break;
 					} 
 					
@@ -242,6 +381,7 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 					{
 						Object_array[3][ID][0] = line;
 						Object_Stat_array[3][ID][0][0] = atoi(line.c_str());
+				
 						break;
 					} 
 					
@@ -250,6 +390,7 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 						Object_array[4][ID][0] = line;
 						Object_Stat_array[4][ID][0][0] = atoi(line.c_str());
 						Object_Stat_array[4][ID][0][1] = atoi(line.c_str());
+						
 						break;
 					}
 					
@@ -258,6 +399,7 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 						Object_array[5][ID][0] = line;
 						Object_Stat_array[5][ID][0][0] = atoi(line.c_str());
 						Object_Stat_array[5][ID][0][1] = atoi(line.c_str());
+
 						break;
 					} 
 					
@@ -334,7 +476,7 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 					case SIDE:
 					{
 						Object_array[16][ID][0] = line;
-						//Object_Stat_array[16][ID][0] = atoi(line.c_str());
+						
 						break;
 					} 
 					
@@ -345,11 +487,25 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 			OBJ_FILE.close();
 		}
 		
+		//temp
+		std::cout << "this is to check if there is information being put down for : " << ID << std::endl;
+		for(int z = 0; z < 17; z++)
+		{
+			std::cout << z << " is = " << Object_array[z][ID][0] << std::endl;	
+		}
+		//temp
+		
+		
+		
+		
+		
+		
 		OBJ_SID_Setter(LLDa,1,ID); // nice
 		
 	}
 	void OBJ_SID_Setter(loadlevel *LLD,int layer,int IndexOBJ) // this is for one object at the moment it should be for all after i get this peice working.
 	{
+		
 		layer = 1; // this is object layer.
 		int SID = 0;
 		
@@ -375,7 +531,6 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 						{
 							Object_Stat_array[G][IndexOBJ][SID][0] = atoi(Temp_array[G][0][0].c_str());
 							Object_Stat_array[G][IndexOBJ][SID][1] = atoi(Temp_array[G][0][0].c_str());
-							
 						}
 						else if(G == 5)
 						{
@@ -392,7 +547,7 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 					
 					}
 				 SID++;
-				 //output("A OBJ SID WAS SET!",0);
+				 output("A OBJ SID WAS SET!",0);
 				
 				}
 				
@@ -404,7 +559,7 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 	int OBJ_SID_FINDER(loadlevel *LLD,int layer,int IndexOBJ)
 	{
 		layer = 1; // 1 is the object layer
-		IndexOBJ = 3; // this is for testing.
+		//IndexOBJ = 3; // this is for testing.
 		//LocX
 		//if(LLD->REAL_MAPARRAY[LocX.x/16][LocX.y/16][layer])
 
@@ -440,7 +595,7 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 		
 		
 		
-		
+		/*
 		for(int j = 0; j < 500; j++)
 		{
 			for(int i = 0; i < 500; i++)
@@ -456,7 +611,7 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 				}
 			}
 		}
-		
+		*/
 		
 	}
 	
@@ -537,15 +692,17 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 		
 		Text_array[19] = Object_array[16][IndexOBJ][SID];//SIDE
 		
-		OBJ_UI_DRAW_SET(IndexOBJ,SID);
+		//OBJ_UI_DRAW_SET(IndexOBJ,SID);
 	}
-	
+
 	void OBJ_UI_DRAW_SET(int IndexOBJ,int SID)
 	{
-			SDL_Surface *TEMP_S;
-			TEMP_S = IMG_Load(Object_array[1][IndexOBJ][SID].c_str());
-			GUI_OBJ = SDL_CreateTextureFromSurface(Ren0,TEMP_S);
-		    SDL_FreeSurface(TEMP_S);
+		
+			SDL_Surface *TEMP_SA;
+			TEMP_SA = IMG_Load(Object_array[1][IndexOBJ][SID].c_str());
+			GUI_OBJ = SDL_CreateTextureFromSurface(Ren0,TEMP_SA);
+		    SDL_FreeSurface(TEMP_SA);
+
 			
 			SDL_QueryTexture(GUI_OBJ, NULL, NULL, &GUI_OBJ_icon.w ,&GUI_OBJ_icon.h );
 			
@@ -553,6 +710,8 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 			GUI_OBJ_icon.y = 351;
 			GUI_OBJ_icon.w = 128;
 			GUI_OBJ_icon.h = 128;
+			
+			
 	}
 
 	void UI_OVERLAY_1() // I'm going to move the draw for the text and such up here.
@@ -572,6 +731,8 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 			Path0 = "Data/UI/Factions/Blue.bmp";
 			if(fact == "Object")
 			Path0 = "Data/UI/Factions/Object.bmp";
+			if(fact == "Red")
+			Path0 = "Data/UI/Factions/Red.bmp";
 			
 			
 			SDL_Surface *TEMP_S;

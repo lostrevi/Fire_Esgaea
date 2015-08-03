@@ -1,6 +1,7 @@
 #ifndef CONSOLECM_H
 #define CONSOLECM_H
 
+
 void CCM()
 {
 	std::string OUTPUT = "";
@@ -28,6 +29,8 @@ void CCM()
 	OUTPUT = "Help - This command";	
 	output(OUTPUT,0);
 	OUTPUT = "Loadlevel - Load a level just put the path and the asst(leave blank)";	
+	output(OUTPUT,0);
+	OUTPUT = "changeobj - change the string of an object for testing";	
 	output(OUTPUT,0);
 	
 	
@@ -58,19 +61,35 @@ void CCM()
 	
 	OUTPUT = "";
 	}
-	
-	
-	if(INPUT == "GETINFO")//this is a temp for seein mapdata in the load level calls.
+	if(INPUT == "changeobj")
 	{
-		loadlevel Acc;
-		int a,b;
-		std::cin >> a; 
+		OUTPUT = "changeobj - change the string of objects";
+		output(OUTPUT,0);
+		OUTPUT = "##########################################";
+		output(OUTPUT,0);
+		int a,b,c;
+		output("Enter which stat you want to change 0-17 : ",9);
+		std::cin >> a;
+		std::cout << std::endl;
+		output("Enter which Index of the object is 0-499 : ",9);
 		std::cin >> b;
-		std::cout << std::endl <<std::endl;
-		std::cout << "val is " << Acc.ACT_MAPARRAY[a][b];
+		std::cout << std::endl;
+		output("Enter which SID of the object is 0-254 : ",9);
+		std::cin >> c;
+		std::cout << std::endl;
+		std::string  TEMP = "";
+		output("Enter what you want the string to be : ",9);
+		std::cin >> TEMP;
+		std::cout << std::endl;
+		GUI0->Object_array[a][b][c] = TEMP;
+		output("DONE!",0);
+		
+		OUTPUT = "";	
 	}
 	
 }
+
+
 
 
 

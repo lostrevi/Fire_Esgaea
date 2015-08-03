@@ -5,16 +5,16 @@ Order=0,1,2,3,4,5,6,7
 [Editor_0]
 Open=1
 Top=0
-CursorCol=18
-CursorRow=42
-TopLine=25
+CursorCol=23
+CursorRow=28
+TopLine=47
 LeftChar=1
 [Editor_1]
 Open=1
 Top=0
-CursorCol=10
-CursorRow=33
-TopLine=25
+CursorCol=3
+CursorRow=27
+TopLine=1
 =======
 Focused=7
 Order=0,1,2,3,4,5,6,7
@@ -38,9 +38,9 @@ LeftChar=1
 Open=1
 Top=0
 <<<<<<< HEAD
-CursorCol=1
-CursorRow=5
-TopLine=1
+CursorCol=3
+CursorRow=32
+TopLine=8
 =======
 CursorCol=10
 CursorRow=27
@@ -63,9 +63,9 @@ LeftChar=1
 Open=1
 Top=0
 <<<<<<< HEAD
-CursorCol=57
-CursorRow=246
-TopLine=230
+CursorCol=9
+CursorRow=145
+TopLine=118
 =======
 CursorCol=16
 CursorRow=20
@@ -76,9 +76,9 @@ LeftChar=1
 Open=1
 Top=0
 <<<<<<< HEAD
-CursorCol=56
-CursorRow=33
-TopLine=15
+CursorCol=47
+CursorRow=28
+TopLine=2
 =======
 CursorCol=2
 CursorRow=9
@@ -89,18 +89,18 @@ LeftChar=1
 Open=1
 Top=0
 <<<<<<< HEAD
-CursorCol=14
-CursorRow=36
+CursorCol=2
+CursorRow=89
 =======
 CursorCol=2
 CursorRow=12
 >>>>>>> origin/master
-TopLine=13
+TopLine=18
 LeftChar=1
 [Editor_7]
 Open=1
 Top=1
-CursorCol=61
-CursorRow=474
-TopLine=460
+CursorCol=83
+CursorRow=533
+TopLine=518
 LeftChar=1
