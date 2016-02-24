@@ -5,15 +5,15 @@ Order=0,1,2,3,4,5,6,7
 [Editor_0]
 Open=1
 Top=0
-CursorCol=23
-CursorRow=28
-TopLine=47
+CursorCol=2
+CursorRow=9
+TopLine=1
 LeftChar=1
 [Editor_1]
 Open=1
 Top=0
-CursorCol=3
-CursorRow=27
+CursorCol=2
+CursorRow=16
 TopLine=1
 =======
 Focused=7
@@ -40,7 +40,7 @@ Top=0
 <<<<<<< HEAD
 CursorCol=3
 CursorRow=32
-TopLine=8
+TopLine=1
 =======
 CursorCol=10
 CursorRow=27
@@ -65,7 +65,7 @@ Top=0
 <<<<<<< HEAD
 CursorCol=9
 CursorRow=145
-TopLine=118
+TopLine=1
 =======
 CursorCol=16
 CursorRow=20
@@ -78,7 +78,7 @@ Top=0
 <<<<<<< HEAD
 CursorCol=47
 CursorRow=28
-TopLine=2
+TopLine=1
 =======
 CursorCol=2
 CursorRow=9
@@ -95,12 +95,12 @@ CursorRow=89
 CursorCol=2
 CursorRow=12
 >>>>>>> origin/master
-TopLine=18
+TopLine=39
 LeftChar=1
 [Editor_7]
 Open=1
 Top=1
-CursorCol=83
-CursorRow=533
-TopLine=518
+CursorCol=10
+CursorRow=262
+TopLine=241
 LeftChar=1

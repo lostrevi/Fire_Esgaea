@@ -1,5 +1,5 @@
 [ID]
-3
+5
 [icon]
 Data/Objects/Poop0/Poop0_icon.bmp
 [Name]

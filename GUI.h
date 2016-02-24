@@ -84,8 +84,19 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 		int ATIVEIDs[200];
 		
 	
+		int usedIDs[100];
+		
+	
 	void Object_looker(loadlevel *LLD)// looks if the curser is over an object
 	{
+		
+		for(int i = 0; i < 100; i++)
+		{
+			usedIDs[i] = 0;
+		}
+		
+		
+		
 		
 		for(int Zer = 0; Zer < 200; Zer++)
 			{
@@ -213,8 +224,42 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 									int ID = atoi(TEMP[1][0].c_str());
 									std::string AA1 = TEMP[2][0];
 									std::string AA2 = TEMP[0][0];
-									Get_object_UI(LLDa,AA1,AA2,ID);
+									
+									bool is_same = false;
+									
+									for(int i = 0; i < 100; i++)
+									{
+										
+										if(usedIDs[i] == ID)	
+										is_same = true;
+										
+									}
+									
+									if(!is_same)
+									{
+										Get_object_UI(LLDa,AA1,AA2,ID);
+										
+										for(int i = 0; i < 100; i++)
+										{
+											if(usedIDs[i] != 0)
+											{
+												usedIDs[i] = ID;
+												break;
+											}
+										}
+										
+									}
+									
+									
+									else if (is_same)
+									{
+										std::cout << "A doop has been detected and stoped!" << std::endl;
+										is_same = false;
+									}
+									
 									std::cout << "TREE CALL OUT INIT FOR AA1 : " << AA1 << " AA2 : " << AA2 <<  " ID : " << ID << std::endl;
+									
+									
 									
 									}
 									
@@ -235,16 +280,7 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 		
 	void Get_object_UI(loadlevel *LLDa,std::string Path,std::string Name,int ID) //ID is for the object type and SID is for eatch one of that type.
 	{
-		for(int a = 0; a < 17; a++)
-		{
-			for(int b = 0; b < 500; b++)
-			{
-				for(int c = 0; c < 250; c++)
-				{
-					Object_array[a][b][c] = "";
-				}
-			}
-		}
+		
 			
 		//testing by having this load strate into one object Rock0 so this will be more dynimc sooonnnn i'm sleepyyyyyyy
 		enum OSTATE { OID, icon, OName, LV, HP, SP, ATK, DEF, INT, Res, Spd, HIT, Mov, Txp, Next, CTH, SIDE};
@@ -366,13 +402,15 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 					{
 						
 						Object_array[1][ID][0] = line;
-
+						
+						
 						break;
 					} 
 					
 					case OName:
 					{
 						Object_array[2][ID][0] = line;
+						
 
 						break;
 					} 
@@ -660,6 +698,7 @@ class GUI // make sure your drawing the same object you stupid fuck oh my god i 
 	
 	void OBJ_GUI_TEXT_SEL(int IndexOBJ, int SID) // put the values in the gui It will need to put them as an int array to so they can be effected or somthing like that.
 	{
+		
 		
 		Level_CHECK(IndexOBJ,SID,Object_Stat_array[3][IndexOBJ][SID][0]);
 		

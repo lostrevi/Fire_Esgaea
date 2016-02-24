@@ -1,5 +1,6 @@
 [objectstack]
-2
+3
 [objectlist]
 Rock0 3 Data/Objects/Rock0/Rock0.txt
 Shurb 4 Data/Objects/Shrub0/Shrub0.txt
+Poop0 5 Data/Objects/Poop0/Poop0.txt
